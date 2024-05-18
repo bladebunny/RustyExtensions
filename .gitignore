@@ -1,6 +1,9 @@
 # General
 .DS_Store
 
+# Git
+.gitignore.swp
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
