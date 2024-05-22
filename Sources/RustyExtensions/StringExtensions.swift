@@ -11,7 +11,7 @@ import Foundation
 extension String {
     
     public static let empty = ""
-    
+        
     public var toBase64: String? {
         self.data(using: .utf8)?.base64EncodedString()
     }
@@ -28,5 +28,15 @@ extension String {
         self.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)?
             .replacingOccurrences(of: "&", with: "%26")
     }
+    
+    public var urlDecoded: String? {
+        self.removingPercentEncoding
+    }
 }
 
+extension Optional<String> {
+    
+    public var safe: String {
+        return self ?? String.empty
+    }
+}
