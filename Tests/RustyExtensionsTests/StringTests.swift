@@ -1,3 +1,10 @@
+//
+//  StringTests.swift
+//  RustyExtensions
+//
+//  Created by Tim Brooks on 5/18/24.
+//
+
 import XCTest
 @testable import RustyExtensions
 
