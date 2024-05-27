@@ -9,6 +9,10 @@ import Foundation
 
 extension Data {
     
+    public var bytes: [UInt8] {
+        return [UInt8](self)
+    }
+    
     public var ut8String: String? {
         let result = String(data: self, encoding: .utf8)
         return result
