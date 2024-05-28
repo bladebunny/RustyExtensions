@@ -43,12 +43,12 @@ extension Bundle {
     
     public func decode<T: Decodable>(_ type: T.Type,
                                      resource: String,
-                                     ext: String,
+                                     withExtension: String,
                                      dateStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                                      keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
         
-        guard let url = self.url(forResource: resource, withExtension: ext) else {
-            fatalError("Failed to locate \(resource).\(ext) in bundle.")
+        guard let url = self.url(forResource: resource, withExtension: withExtension) else {
+            fatalError("Failed to locate \(resource).\(withExtension) in bundle.")
         }
         
         return decode(type,
@@ -58,14 +58,31 @@ extension Bundle {
     }
     
     public func decodeJson<T: Decodable>(_ type: T.Type,
-                                     resource: String,
-                                     dateStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
-                                     keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
-                
+                                         resource: String,
+                                         dateStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
+                                         keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
+        
         return decode(type,
                       resource: resource,
-                      ext: "json",
+                      withExtension: "json",
                       dateStrategy: dateStrategy,
                       keyStrategy: keyStrategy)
+    }
+    
+    public func read(resource: String, withExtension: String) -> String? {
+        
+        guard let url = self.url(forResource: resource, withExtension: withExtension) else {
+            fatalError("Failed to locate \(resource).\(withExtension) in bundle.")
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("Failed to load \(url.absoluteString) from bundle.")
+        }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+    public func readJson(resource: String) -> String? {
+        return read(resource: resource, withExtension: "json")
     }
 }
