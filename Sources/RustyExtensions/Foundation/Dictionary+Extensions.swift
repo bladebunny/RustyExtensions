@@ -1,6 +1,6 @@
 //
-//  DictionaryExtensions.swift
-//
+//  Dictionary+Extensions.swift
+//  RustyExtensions
 //
 //  Created by Tim Brooks on 5/25/24.
 //

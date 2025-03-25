@@ -30,4 +30,22 @@ final class StringTests: XCTestCase {
         let decoded = try XCTUnwrap(encoded.fromBase64)
         XCTAssert(original == decoded, "Base64 decoding failed")
     }
+    
+    func testReplacements() {
+        
+        let testString = "Hello World"
+        let firstMatch = "Hell| World"
+
+        var copy = testString
+        
+        copy.set(character: "|", at: 4)
+        XCTAssertFalse(copy == testString)
+        XCTAssertTrue(copy == firstMatch)
+
+        // neg checks
+        copy.set(character: "_", at: copy.count) // out of bounds
+        XCTAssertTrue(copy == firstMatch)
+        copy.set(character: "_", at: -1) // out of bounds
+        XCTAssertTrue(copy == firstMatch)
+    }
 }
