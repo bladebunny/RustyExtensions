@@ -7,11 +7,12 @@
 
 import Foundation
 
-public enum JSONError: Error, CustomDebugStringConvertible {
+public enum JSONDecodingError: Error, CustomDebugStringConvertible {
     
     case dataCorrupted(String)
     case general(String)
     case keyNotFound(String)
+    case loadFailure(String)
     case typeMismatch(String)
     case valueNotFound(String)
     case unknown(String)
@@ -24,18 +25,19 @@ public enum JSONError: Error, CustomDebugStringConvertible {
         case .dataCorrupted(let message): fallthrough
         case .general(let message): fallthrough
         case .keyNotFound(let message): fallthrough
+        case .loadFailure(let message): fallthrough
         case .typeMismatch(let message): fallthrough
         case .valueNotFound(let message): fallthrough
         case .unknown(let message):
             return message
         }
     }
-
+    
     // MARK: - JSON Error Parsing helper
-    public static func parseDecodeError(_ error: Error) -> JSONError {
+    public static func parseDecodeError(_ error: Error) -> JSONDecodingError {
         
         // Catch JSON errors
-        var parseError: JSONError = .unknown("Not Parsed")
+        var parseError: JSONDecodingError = .unknown("Not Parsed")
         var errorMessage = String.empty
         
         if let decodingError = error as? DecodingError {
@@ -45,19 +47,19 @@ public enum JSONError: Error, CustomDebugStringConvertible {
             case .typeMismatch(_, let context):
                 errorMessage = decodingInfo(prefix: "Type Mismatch: ", context: context)
                 parseError = .typeMismatch(errorMessage)
-
+                
             case .valueNotFound(_, let context):
                 errorMessage = decodingInfo(prefix: "Value not found: ", context: context)
                 parseError = .valueNotFound(errorMessage)
-
+                
             case .keyNotFound(_, let context):
                 errorMessage = decodingInfo(prefix: "Key not found: ", context: context)
                 parseError = .keyNotFound(errorMessage)
-
+                
             case .dataCorrupted(let context):
                 errorMessage = decodingInfo(prefix: "Data Corrupted: ", context: context)
                 parseError = .dataCorrupted(errorMessage)
-
+                
             @unknown default:
                 parseError = .unknown("Unknown JSON DecodingError: \(error.localizedDescription)")
             }
@@ -89,7 +91,7 @@ public enum JSONError: Error, CustomDebugStringConvertible {
         """
         
         if !path.isEmpty {
-
+            
             // Append path: eg Parent.child.property
             result = """
             \(result)
@@ -98,7 +100,7 @@ public enum JSONError: Error, CustomDebugStringConvertible {
         }
         
         if let underlyingError = context.underlyingError {
-
+            
             // Append source error
             result = """
             \(result)
@@ -108,5 +110,4 @@ public enum JSONError: Error, CustomDebugStringConvertible {
         
         return result
     }
-
 }

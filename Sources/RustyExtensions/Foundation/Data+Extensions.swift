@@ -45,13 +45,13 @@ extension Data {
         decoder.dateDecodingStrategy = dateStrategy
         
         // Catch JSON errors
-        var parseError: JSONError?
+        var parseError: JSONDecodingError?
         var element: A?
         
         do {
             element = try decoder.decode(A.self, from: self)
         } catch {
-            parseError = JSONError.parseDecodeError(error)
+            parseError = JSONDecodingError.parseDecodeError(error)
         }
         
         guard let parsedElement = element else {
