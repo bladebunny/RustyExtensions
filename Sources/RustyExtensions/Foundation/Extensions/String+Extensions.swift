@@ -12,6 +12,8 @@ extension String {
     
     
     // MARK: - String checks
+    public static var comma: String { "," }
+
     public static var empty: String { "" }
 
     public static var space: String { " " }
@@ -93,6 +95,11 @@ extension String {
             .replacingOccurrences(of: "&", with: "%26")
     }
     
+    // MARK: - Search
+    func findFirstMatch(from possibleMatches: [String], caseSensitive: Bool = true) -> String? {
+        return Array<String>.findFirstMatch(in: self, from: possibleMatches, caseSensitive: caseSensitive)
+    }
+
     // MARK: - Printing
     public static func prettify(json: [String: Any]?) -> String {
         

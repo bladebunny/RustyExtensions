@@ -10,6 +10,7 @@ import SwiftUI
 
 extension Bundle {
     
+    // MARK: - Decoding
     public func decode<T: Decodable>(_ type: T.Type,
                                      from url: URL,
                                      dateStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
@@ -18,7 +19,7 @@ extension Bundle {
         let file = url.absoluteString
         
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load \(file) from bundle.")
+            return Result.failure(JSONDecodingError.dataCorrupted("Failed to load \(file) from bundle."))
         }
         
         let decoder = JSONDecoder()
