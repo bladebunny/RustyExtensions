@@ -9,7 +9,7 @@ import Foundation
 
 extension Data {
     
-    var bool: Bool? {
+    public var bool: Bool? {
         Bool(data: self)
     }
 
@@ -17,7 +17,7 @@ extension Data {
         return [UInt8](self)
     }
     
-    var int: Int {
+    public var int: Int {
         
         self.withUnsafeBytes { pointer in
             return pointer.load(as: Int.self)

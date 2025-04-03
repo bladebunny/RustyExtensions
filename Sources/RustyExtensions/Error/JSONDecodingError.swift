@@ -1,6 +1,6 @@
 //
 //  JSONError.swift
-//
+//  RustyExtensions
 //
 //  Created by Tim Brooks on 5/18/24.
 //
