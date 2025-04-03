@@ -9,12 +9,12 @@ import Foundation
 
 extension Bool {
 
-    var data: Data {
+    public var data: Data {
         var buffer = self
         return Data(bytes: &buffer, count: MemoryLayout<Int>.size)
     }
 
-    init?(data: Data) {
+    public init?(data: Data) {
         
         let nsData = data as NSData
         var value = false

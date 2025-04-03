@@ -10,6 +10,9 @@ import SwiftUI
 
 extension Bundle {
     
+    // MARK: - Properties
+    public static let appBundleID = Bundle.main.bundleIdentifier
+
     // MARK: - Decoding
     public func decode<T: Decodable>(_ type: T.Type,
                                      from url: URL,

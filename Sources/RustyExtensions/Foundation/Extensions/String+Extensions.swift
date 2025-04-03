@@ -7,15 +7,11 @@
 
 import Foundation
 
-
 extension String {
-    
     
     // MARK: - String checks
     public static var comma: String { "," }
-
     public static var empty: String { "" }
-
     public static var space: String { " " }
 
     public static var emptyChar: Character { return Self.empty[Self.empty.startIndex] }
@@ -27,7 +23,7 @@ extension String {
 
     // MARK: - String components
     /// For debug printing in order to get the Class from a file url
-    var lastPathComponent: String {
+    public var lastPathComponent: String {
         let components = self.split(separator: "/")
         guard components.count >= 1 else { return String.empty }
         return String(components[components.count - 1])
@@ -96,7 +92,7 @@ extension String {
     }
     
     // MARK: - Search
-    func findFirstMatch(from possibleMatches: [String], caseSensitive: Bool = true) -> String? {
+    public func findFirstMatch(from possibleMatches: [String], caseSensitive: Bool = true) -> String? {
         return Array<String>.findFirstMatch(in: self, from: possibleMatches, caseSensitive: caseSensitive)
     }
 
